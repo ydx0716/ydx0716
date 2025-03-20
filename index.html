@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浪漫文字美化器</title>
+    <style>
+        body {
+            background-color: pink;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            color: red;
+            font-size: 2.5rem;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            font-size: 1.2rem;
+            margin: 10px;
+            border: 2px solid red;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        button {
+            font-size: 1.2rem;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: red;
+        }
+        .heart {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: red;
+            transform: rotate(-45deg);
+            animation: float 3s linear infinite;
+        }
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+        }
+        .heart:before {
+            top: -5px;
+            left: 0;
+        }
+        .heart:after {
+            top: 0;
+            left: 5px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
+            100% { transform: translateY(-300px) rotate(-45deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>浪漫文字美化器 ❤️</h1>
+    <textarea id="inputText" placeholder="输入你的甜言蜜语..."></textarea><br>
+    <button onclick="generateRomanticText()">生成</button>
+    <div id="output"></div>
+
+    <script>
+        function generateRomanticText() {
+            let text = document.getElementById("inputText").value;
+            if (!text.trim()) {
+                alert("请输入内容！");
+                return;
+            }
+            let hearts = '❤️'.repeat(5);
+            let romanticText = hearts + " " + text.split('').join(' ') + " " + hearts;
+            document.getElementById("output").innerHTML = romanticText;
+            createHearts();
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'heart';
+                document.body.appendChild(heart);
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                setTimeout(() => heart.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
